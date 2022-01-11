@@ -100,7 +100,7 @@
                     </div>
                     <div class="modal-footer">
                         <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-                        <button type="button" class="btn btn-primary">Close</button>
+                        <button type="button" class="btn btn-primary btn-modal-close">Close</button>
                     </div>
                 </div>
             </div>
@@ -110,10 +110,14 @@
             var msg = [[${msg}]];
 
             //console.log(msg);
-
+            //삭제/등록시 모달창 열기
             if(msg){
-                $(".modal").modal();
+                $(".modal").modal('show');
             }
+
+            $('.btn-modal-close').click(function(){
+                $('.modal').modal('hide');
+            });
 
 
             var searchForm = $("#searchForm");
