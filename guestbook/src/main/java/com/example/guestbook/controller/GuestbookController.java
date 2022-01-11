@@ -35,17 +35,6 @@ public class GuestbookController {
 
     }
 
-    @GetMapping({"/read", "/modify"})
-    public void read(long gno, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, Model model){
-
-        log.info("gno: " + gno);
-
-        GuestbookDTO dto = service.read(gno);
-
-        model.addAttribute("dto", dto);
-
-    }
-
     @GetMapping("/register")
     public void register(){
         log.info("register get...");
@@ -58,6 +47,29 @@ public class GuestbookController {
 
         //number of new entity
         Long gno = service.register(dto);
+
+        redirectAttributes.addFlashAttribute("msg", gno);
+
+        return "redirect:/guestbook/list";
+    }
+
+    @GetMapping({"/read", "/modify"})
+    public void read(long gno, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, Model model){
+
+        log.info("gno: " + gno);
+
+        GuestbookDTO dto = service.read(gno);
+
+        model.addAttribute("dto", dto);
+
+    }
+
+    @PostMapping("/remove")
+    public String remove(long gno, RedirectAttributes redirectAttributes){
+
+        log.info("gno: " + gno);
+
+        service.remove(gno);
 
         redirectAttributes.addFlashAttribute("msg", gno);
 
