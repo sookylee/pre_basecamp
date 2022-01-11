@@ -13,6 +13,7 @@ import com.example.guestbook.dto.PageRequestDTO;
 import com.example.guestbook.dto.PageResultDTO;
 
 import java.util.function.Function;
+import java.util.Optional;
 
 @Service
 @Log4j2
@@ -46,5 +47,13 @@ public class GuestbookServiceImpl implements GuestbookService {
         Function<Guestbook, GuestbookDTO> fn = (entity -> entityToDto(entity));
 
         return new PageResultDTO<>(result, fn);
+    }
+
+    @Override
+    public GuestbookDTO read(Long gno) {
+
+        Optional<Guestbook> result = repository.findById(gno);
+
+        return result.isPresent() ? entityToDto(result.get()) : null;
     }
 }
