@@ -9,6 +9,9 @@
 
         <form action="/guestbook/modify" method="post">
 
+            <!-- 페이지 번호 -->
+            <input type="hidden" name="page" th:value="${requestDTO.page}">
+
             <div class="form-group">
                 <label>Gno</label>
                 <input type="text" class="form-control" name="gno" th:value="${dto.gno}" readonly>
@@ -56,10 +59,33 @@
 
     $(".removeBtn").click(function(){
         actionForm.attr("action", "/guestbook/remove")
-                  .attr("method", "post");
-
-        actionForm.submit();
+                  .attr("method", "post")
+                  .submit();
     });
+
+
+    $(".modifyBtn").click(function(){
+        if(!confirm("수정하시겠습니까?")){
+            return;
+        }
+
+        actionForm.attr("action", "/guestbook/modify")
+                  .attr("method", "post")
+                  .submit();
+    });
+
+
+    $(".listBtn").click(function(){
+
+        var pageInfo = $("input[name='page']");
+
+        actionForm.empty(); //delete all contents
+        actionForm.append(pageInfo);
+        actionForm.attr("action", "/guestbook/list")
+                  .attr("method", "get")
+                  .submit();
+    });
+
 </script>
 
 </html>
