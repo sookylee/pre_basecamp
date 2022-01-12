@@ -45,13 +45,24 @@ public class GuestbookController {
 
         log.info("dto..." + dto);
 
-        //number of new entity
-        Long gno = service.register(dto);
+        //check if exists
+        boolean flag = service.isvalid(dto);
 
-        redirectAttributes.addFlashAttribute("msg", gno);
-        redirectAttributes.addFlashAttribute("status", "registered");
+        System.out.println(flag);
 
-        return "redirect:/guestbook/list";
+        if(true){ //is valid
+            //number of new entity
+            Long gno = service.register(dto);
+
+            redirectAttributes.addFlashAttribute("msg", gno);
+            redirectAttributes.addFlashAttribute("status", "registered");
+
+            return "redirect:/guestbook/list";
+        }
+
+        redirectAttributes.addFlashAttribute("notice", "빈칸을 모두 작성해주세요.");
+
+        return "redirect:/guestbook/register";
     }
 
     @GetMapping({"/read", "/modify"})
@@ -86,13 +97,21 @@ public class GuestbookController {
         log.info("post modify..................................................");
         log.info("dto: " + dto);
 
-        service.modify(dto);
+        //check if exists
+        boolean flag = service.isvalid(dto);
 
         redirectAttributes.addAttribute("page", requestDTO.getPage());
         redirectAttributes.addAttribute("type", requestDTO.getType());
         redirectAttributes.addAttribute("keyword", requestDTO.getKeyword());
         redirectAttributes.addAttribute("gno", dto.getGno());
 
-        return "redirect:/guestbook/read";
+        if(flag){ //is valid
+            service.modify(dto);
+            return "redirect:/guestbook/read";
+        }
+
+        redirectAttributes.addFlashAttribute("notice", "빈칸을 모두 작성해주세요.");
+
+        return "redirect:/guestbook/modify";
     }
 }

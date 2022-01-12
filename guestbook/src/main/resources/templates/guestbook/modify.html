@@ -21,17 +21,17 @@
 
             <div class="form-group">
                 <label>Title</label>
-                <input type="text" class="form-control" name="title" th:value="${dto.title}">
+                <input type="text" class="form-control" name="title" id="title" th:value="${dto.title}">
             </div>
 
             <div class="form-group">
                 <label>Content</label>
-                <textarea class="form-control" rows="5" name="content">[[${dto.content}]]</textarea>
+                <textarea class="form-control" rows="5" name="content" id="content">[[${dto.content}]]</textarea>
             </div>
 
             <div class="form-group">
                 <label>Writer</label>
-                <input type="text" class="form-control" name="writer" th:value="${dto.writer}" readonly>
+                <input type="text" class="form-control" name="writer" id="writer" th:value="${dto.writer}" readonly>
             </div>
 
             <div class="form-group">
@@ -57,6 +57,31 @@
 </th:block>
 
 <script th:inline="javascript">
+    //if empty space exists
+    var msg = [[${notice}]];
+    if(msg){
+        alert(msg);
+    }
+
+    function isValid(){
+        var title = $('#title').val();
+        var content = $('#content').val();
+        var writer = $('#writer').val();
+        var ret = true;
+
+        if(title == null || title.trim().length == 0){
+            ret = false;
+        }
+        else if(content == null || content.trim().length == 0){
+            ret = false;
+        }
+        else if(writer == null || writer.trim().length == 0){
+            ret = false;
+        }
+
+        return ret;
+    }
+
     var actionForm = $("form");
 
     $(".removeBtn").click(function(){
@@ -67,6 +92,13 @@
 
 
     $(".modifyBtn").click(function(){
+        if(!isValid()){
+            alert('빈칸을 모두 작성해주세요.');
+            return;
+        }
+
+        console.log(isValid());
+
         if(!confirm("수정하시겠습니까?")){
             return;
         }

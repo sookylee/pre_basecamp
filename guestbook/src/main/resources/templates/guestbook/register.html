@@ -30,4 +30,32 @@
 
 </th:block>
 
+<script th:inline="javascript">
+    //if empty space exists
+    var msg = [[${notice}]];
+
+    if(msg){
+        alert(msg);
+    }
+
+    function isValid(){
+        var title = $('#title').val();
+        var content = $('#content').val();
+        var writer = $('#writer').val();
+        var ret = true;
+
+        if(title == null || title.trim().length == 0){
+            ret = false;
+        }
+        else if(content == null || content.trim().length == 0){
+            ret = false;
+        }
+        else if(writer == null || writer.trim().length == 0){
+            ret = false;
+        }
+
+        return ret;
+    }
+</script>
+
 </html>
