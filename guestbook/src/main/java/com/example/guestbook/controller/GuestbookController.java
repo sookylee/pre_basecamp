@@ -48,9 +48,7 @@ public class GuestbookController {
         //check if exists
         boolean flag = service.isvalid(dto);
 
-        System.out.println(flag);
-
-        if(true){ //is valid
+        if(flag){ //is valid
             //number of new entity
             Long gno = service.register(dto);
 
