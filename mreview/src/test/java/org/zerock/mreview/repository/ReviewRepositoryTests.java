@@ -18,6 +18,9 @@ public class ReviewRepositoryTests {
     @Autowired
     private ReviewRepository reviewRepository;
 
+    @Autowired
+    private MemberRepository memberRepository;
+
     @Test
     public void insertMovieReviews(){
 
@@ -55,5 +58,19 @@ public class ReviewRepositoryTests {
             System.out.println("\t"+ movieReview.getMember().getEmail());
             System.out.println("--------------------------------------");
         });
+    }
+
+    @Commit
+    @Transactional
+    @Test
+    public void testDeleteMember(){
+
+        Long mid = 1L; //member의 mid
+
+        Member member = Member.builder().mid(mid).build();
+
+        //순서 주의 - 리뷰부터 지워야 함
+        reviewRepository.deleteByMember(member);
+        memberRepository.deleteById(mid);
     }
 }
