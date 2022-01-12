@@ -85,6 +85,23 @@ public class GuestbookServiceImpl implements GuestbookService {
         }
     }
 
+    @Override
+    public boolean isvalid(GuestbookDTO dto){
+        boolean flag = true;
+
+        if(dto.getTitle() == null || dto.getTitle().trim().length() == 0){
+            flag = false;
+        }
+        else if(dto.getContent() == null || dto.getContent().trim().length() == 0){
+            flag = false;
+        }
+        else if(dto.getWriter() == null || dto.getWriter().trim().length() == 0){
+            flag = false;
+        }
+
+        return flag;
+    }
+
 
     //querydsl 처리
     private BooleanBuilder getSearch(PageRequestDTO requestDTO){
