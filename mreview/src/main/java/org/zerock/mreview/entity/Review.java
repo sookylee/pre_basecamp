@@ -3,7 +3,6 @@ package org.zerock.mreview.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.lang.reflect.Member;
 
 @Entity
 @Builder
