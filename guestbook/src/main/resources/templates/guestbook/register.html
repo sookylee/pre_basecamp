@@ -7,23 +7,23 @@
 
         <h1 class="mt-4">GuestBook Register Page</h1>
 
-        <form th:action="@{/guestbook/register}" th:method="post">
+        <form action="/guestbook/register" method="post">
             <div class="form-group">
                 <label>Title</label>
-                <input type="text" class="form-control" name="title" placeholder="Enter Title">
+                <input type="text" class="form-control title" name="title" placeholder="Enter Title">
             </div>
 
             <div class="form-group">
                 <label>Content</label>
-                <textarea class="form-control" rows="5" name="content"></textarea>
+                <textarea class="form-control content" rows="5" name="content"></textarea>
             </div>
 
             <div class="form-group">
                 <label>Writer</label>
-                <input type="text" class="form-control" name="writer" placeholder="Enter Writer">
+                <input type="text" class="form-control writer" name="writer" placeholder="Enter Writer">
             </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-primary btn-register">Submit</button>
         </form>
 
     </th:block>
@@ -31,6 +31,9 @@
 </th:block>
 
 <script th:inline="javascript">
+
+    var actionForm = $("form");
+
     //if empty space exists
     var msg = [[${notice}]];
 
@@ -38,10 +41,11 @@
         alert(msg);
     }
 
+
     function isValid(){
-        var title = $('#title').val();
-        var content = $('#content').val();
-        var writer = $('#writer').val();
+        var title = $('.title').val();
+        var content = $('.content').val();
+        var writer = $('.writer').val();
         var ret = true;
 
         if(title == null || title.trim().length == 0){
@@ -56,6 +60,19 @@
 
         return ret;
     }
+
+    $(".btn-register").click(function(){
+        if(!isValid()){
+            alert('빈칸을 모두 작성해주세요.');
+            return;
+        }
+
+        actionForm.attr("action", "/guestbook/register")
+                  .attr("method", "post")
+                  .submit();
+
+    });
+
 </script>
 
 </html>
