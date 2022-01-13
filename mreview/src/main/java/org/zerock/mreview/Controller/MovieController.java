@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.mreview.dto.MovieDTO;
+import org.zerock.mreview.dto.PageRequestDTO;
 import org.zerock.mreview.service.MovieService;
 
 @Controller
@@ -34,5 +35,13 @@ public class MovieController {
         redirectAttributes.addFlashAttribute("msg", mno);
 
         return "redirect:/movie/list";
+    }
+
+    @GetMapping("/list")
+    public void list(PageRequestDTO pageRequestDTO, Model model){
+
+        log.info("pageRequestDTO: " + pageRequestDTO);
+
+        model.addAttribute("result", movieService.getList(pageRequestDTO));
     }
 }
