@@ -70,6 +70,7 @@ public class UploadController {
 
             try{
                 uploadFile.transferTo(savePath);
+                resultDTOList.add(new UploadResultDTO(fileName, uuid, folderPath));
             } catch(IOException e) {
                 e.printStackTrace();
             }
@@ -86,7 +87,7 @@ public class UploadController {
         try{
             String srcFileName = URLDecoder.decode(fileName, "UTF-8");
 
-            log.info("fileName: " + srcFileName);
+            log.info("display: fileName: " + srcFileName);
 
             File file = new File(uploadPath + File.separator + srcFileName);
 
