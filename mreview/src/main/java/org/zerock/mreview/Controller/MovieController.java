@@ -1,4 +1,4 @@
-package org.zerock.mreview.controller;
+package org.zerock.mreview.Controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -20,6 +20,11 @@ import org.zerock.mreview.service.MovieService;
 public class MovieController {
 
     private final MovieService movieService;
+
+    @GetMapping("/")
+    public String movieMain(){
+        return "redirect:/movie/list";
+    }
 
     @GetMapping("/register")
     public void register() {
