@@ -69,8 +69,16 @@ public class UploadController {
             //System.out.println(saveName);
 
             try{
+                //원본 파일 저장
                 uploadFile.transferTo(savePath);
+                //썸네일 생성
+                String thumbnailSaveName = uploadPath + File.separator + folderPath + File.separator
+                                         + "s_" + uuid + "_" + fileName;
+                File thumbnailFile = new File(thumbnailSaveName);
+                Thumbnailator.createThumbnail(savePath.toFile(), thumbnailFile, 100, 100);
+
                 resultDTOList.add(new UploadResultDTO(fileName, uuid, folderPath));
+
             } catch(IOException e) {
                 e.printStackTrace();
             }
